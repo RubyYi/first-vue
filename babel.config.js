@@ -4,9 +4,10 @@ module.exports = {
   ],
   plugins: [
     ['import', {
-      libraryName: 'vant',
+      libraryName: 'element-ui',
+      styleLibraryName: "theme-chalk",
       libraryDirectory: 'es',
       style: true
-    }, 'vant']
+    }, 'element-ui']
   ]
 }

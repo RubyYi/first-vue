@@ -4,12 +4,15 @@ import VueResource from 'vue-resource'
 import App from './App.vue'
 import HelloWorld from './components/HelloWorld'
 import Home from './components/Home'
+// import ElementUI from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css';
 // import Users from './components/Users'
 
 Vue.config.productionTip = false
 // 使用中间件注明要使用路由
 Vue.use(VueRouter)
 Vue.use(VueResource)
+// Vue.use(ElementUI)
 
 //配置路由
 const router = new VueRouter({

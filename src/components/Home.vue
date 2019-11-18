@@ -2,6 +2,7 @@
   <div id="home">
     <Header v-on:titleChanged="updateTitle($event)" :title="title"></Header>
     <h1>{{ title }}</h1>
+    <Good v-bind:goods="goods"></Good>
     <Users v-bind:users="users"></Users>
     <Users v-bind:users="users"></Users>
     <Footer :title="title"></Footer>
@@ -13,12 +14,15 @@
 import Users from "./Users";
 import Header from "./Header";
 import Footer from "./Footer";
+import Good from "./Good";
 
 export default {
   name: "Home",
   data() {
     return {
       title: "这是我的第一个Vue脚手架项目！",
+      goods: [
+      ],
       users: [
         // {
         //   name: "Henry",
@@ -62,7 +66,8 @@ export default {
     // "users":Users
     Users,
     Header,
-    Footer
+    Footer,
+    Good
   },
   methods: {
     updateTitle: function(title) {
@@ -94,6 +99,26 @@ export default {
   //   alert("组件销毁");
   // }
   created(){
+    const newGoods = [
+        {
+          name: "苹果",
+          price: "￥20"
+        },
+        {
+          name: "橘子",
+          price: "￥10"
+        },
+        {
+          name: "香蕉",
+          price: "￥6.8"
+        }
+      ]
+      
+
+      this.goods = newGoods.map(item=>{return {...item,show: false}})
+
+
+
       this.$http.get("http://jsonplaceholder.typicode.com/users")
       .then((res)=>{
          console.log(res)
@@ -110,7 +135,7 @@ export default {
         //   this.users.push({...element, contacted:false})         
         // });
         this.users = res.body
-        Array.from(this.users, item => item.contacted = false)
+        
         console.log(this.users)
         } 
       })
