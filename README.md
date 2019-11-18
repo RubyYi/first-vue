@@ -1,4 +1,4 @@
-# hello-world
+# first-vue
 
 ## Project setup 项目设置
 ```jsx
