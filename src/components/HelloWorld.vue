@@ -1,10 +1,9 @@
 <template>
   <div class="helloWorld">
-    <h1>{{name}}</h1>
+    <h1>{{ name }}</h1>
     <p v-text="title"></p>
-    <p>{{greet()}}</p>
-    <!-- 不理解 -->
-    <!-- <a v-bind:href="website" v-onclick.prevent="alert">百度</a> -->
+    <p>{{ greet() }}</p>
+    <a v-bind:href="website" v-on:click.prevent="alert">百度</a>
     <input type="text" v-bind:value="name" />
     <p v-html="websiteTag"></p>
     <p>
@@ -12,11 +11,11 @@
       <button v-on:click="subtract(1)">减一岁</button>
       <button v-on:click="add(10)">长十岁</button>
       <button v-on:click="subtract(10)">减十岁</button>
-      <span>my age is {{age}}</span>
+      <span>my age is {{ age }}</span>
     </p>
     <p>
       <label for="name">姓名：</label>
-      <input type="text" name="name" v-model="name" />
+      <input type="text" name="name" v-model.lazy="name" />
       <label for="age">年龄：</label>
       <input type="text" name="age" v-model="age" />
     </p>
@@ -29,21 +28,21 @@
         <option value="1">橘子</option>
         <option value="2">香蕉</option>
       </select>
-      <span>{{gruit}}</span>
+      <span>{{ gruit }}</span>
     </p>
 
     <div>
       <button @click="a++">Add to A</button>
       <button v-on:click="b++">Add to B</button>
-      <div>A - {{a}}</div>
-      <div>B - {{b}}</div>
-      <div>age + A = {{addToA}}</div>
-      <div>age + B = {{addToB}}</div>
+      <div>A - {{ a }}</div>
+      <div>B - {{ b }}</div>
+      <div>age + A = {{ addToA }}</div>
+      <div>age + B = {{ addToB }}</div>
     </div>
 
     <div class="activeClass">
-      <button @click="changeLength=!changeLength">changeLength</button>
-      <button @click="changeColor=!changeColor">changeColor</button>
+      <button @click="changeLength = !changeLength">changeLength</button>
+      <button @click="changeColor = !changeColor">changeColor</button>
       <p :class="compClasses">
         <span>Henry</span>
       </p>
@@ -62,10 +61,16 @@
       <p v-else>接口没返回</p>
     </div>
 
-    <div v-for="(user,index) in users" v-bind:key="index">
-      <div v-for="(key,value) in user" v-bind:key="key">
-        <p>{{key}} ------ {{value}}</p>
+    <div v-for="(user, index) in users" v-bind:key="index">
+      <div v-for="(key, value) in user" v-bind:key="key">
+        <p>{{ key }} ------ {{ value }}</p>
       </div>
+    </div>
+
+    <div class="canvas" v-on:mousemove="updateXY">
+      {{ X }},{{ Y }} -
+      <span @mousemove.stop>Stop Moving</span>-
+      <span @mousemove="stopUpdateXY">Stop Moving</span>
     </div>
   </div>
 </template>
@@ -91,7 +96,9 @@ export default {
         { name: "Henry", age: 30 },
         { name: "Bucky", age: 43 },
         { name: "Emily", age: 10 }
-      ]
+      ],
+      X: 0,
+      Y: 0
     };
   },
   methods: {
@@ -109,7 +116,7 @@ export default {
     },
     changeName() {
       this.name = this.$refs.name.value;
-    }
+    },
     // addToA(){
     //   console.log('addToA');
     //   return this.age + this.a;
@@ -118,6 +125,13 @@ export default {
     //   console.log('addToB')
     //   return this.age + this.b;
     // }
+    updateXY(event) {
+      this.X = event.offsetX;
+      this.Y = event.offsetY;
+    },
+    stopUpdateXY(event) {
+      event.stopPropagation();
+    }
   },
   computed: {
     addToA() {
@@ -152,5 +166,11 @@ export default {
 .changeLength span::after {
   content: "Length";
   margin-left: 5px;
+}
+.canvas {
+  width: 500px;
+  padding: 200px 20px;
+  text-align: center;
+  border: 1px solid #333;
 }
 </style>

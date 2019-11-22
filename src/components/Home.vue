@@ -1,6 +1,7 @@
 <template>
   <div id="home">
     <Header v-on:titleChanged="updateTitle($event)" :title="title"></Header>
+    <Translate></Translate>
     <h1>{{ title }}</h1>
     <Good v-bind:goods="goods"></Good>
     <Users v-bind:users="users"></Users>
@@ -15,6 +16,7 @@ import Users from "./Users";
 import Header from "./Header";
 import Footer from "./Footer";
 import Good from "./Good";
+import Translate from './Translate';
 
 export default {
   name: "Home",
@@ -67,7 +69,8 @@ export default {
     Users,
     Header,
     Footer,
-    Good
+    Good,
+    Translate
   },
   methods: {
     updateTitle: function(title) {
